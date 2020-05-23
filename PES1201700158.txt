@@ -1,0 +1,80 @@
+I)Introduction
+
+An intal is a non-negative number of arbitrary length. It is represented by a string in C and is terminated by a null character. It basically is a number of any size disguised as a string. An intal is represented as a string of decimal digits that are stored in the big-endian style. Integer data types in C are int, long int , long long int etc. Though these data types can store sufficiently large numbers, they still have a limitation on that. Whereas, intal has no limitations on the size of the number as it is just a string of decimal digits. The inbuilt types also have operations already defined on them, but the intals don't have such readymade functions. There is no compulsion of taking care of the datatype everywhere the number is used, like in terms of format specifiers, variable declarations, etc. By using this library, certain basic operations like addition, subtraction, multiplication etc which are already defined for the inbuilt data types, can be used for intals as well. There are many advanced functions such as mod,fibonacci, factorial and binary search are also defined in this library. This library can be used practically for calculations of huge numbers take place. Generally the numbers which we come across in our daily life are large. For e.g the GDP of a country, the annual power consumption or the total number of people in the country. Though some of these might have units defined, but most of them require performing the basic operations on them. This library will help in such calculations and also make C a bit more competitive with other languages.
+
+II)Approach
+
+Below is the briefly explained approach for implementing each of the functions in this library:
+a)ADDITION of two intals
+char* intal_add(const char* intal1, const char* intal2);
+-->This function calculates the addition of two intals. It takes the two intals as parameters. The method followed to add is the classical high school method of addition. Each of the digits of the two numbers are added from the right side (end) one by one and carry is kept track. The carry is added to the next sum of the digits. The answer of that particular sum is stored to the first character of an answer string.This is followed till the beginning of the two numbers. If one number ends before the other, the remaining digits of that number are appended to the answer string. At the end the answer string is reversed, inorder to get the correct answer. In the beginning of the function, it is made sure that the bigger number, in terms of the number of digits is always the first number.
+
+b)COMPARISION of two intals
+int intal_compare(const char* intal1, const char* intal2);
+--> This function tells the user which intal is bigger among the two passed to it as parameters. It returns 0 when both are equal, returns +1 when intal1 is greater and -1 when intal2 is greater. Initial check is done in terms of the length of the two intals and the appropriate result is returned straightaway if the lengths are different. If the lengths are same, then a character by character comparision is done between the two intals and the appropriate result is returned whenever a difference is encountered.
+
+c)DIFFERENCE of two intals
+char* intal_diff(const char* intal1, const char* intal2);
+--> This function returns the non-negative difference of two intals, i.e the absolute difference of the two intals. Initially, it is made sure that the larger number, in terms of number of digits is always the first number. The method is same as the high school method of subtracting two numbers. The digit by digit subtraction of each of the numbers takes place. If the difference is greater than zero, it is appended to the answer string and the carry is zero. But if the differnce is less than zero, than 10 is added to it and then appended and the carry is zero. This carry will be useful for subtracting from the future differences. It's initial value is zero. If the second number ends before the other, the remaining digits of the first number are appended to the answer after subtracting the carry from it.After this process is finished, the leading zeroes if any are removed from the final answer. If "0" is the answer, it's returned as it is.
+
+d)MULTIPLICATION of two intals
+char* intal_multiply(const char* intal1, const char* intal2);
+-->The numbers are reversed for convienence in the beginning. Then they are multiplied digit by digit from the left and the results are stored in an answer string i.e the first number whole multiplied by the first digit of the second number, and then to the second digit and so on. When changing the digits, the products are added to the already present digits in the answer, shifted by 1 to the right everytime. The answer string is intialized with zeroes at all indexes in the beginning. After this process the answer string is reversed and returned.
+
+e)MODULO of intal
+char* intal_mod(const char* intal1, const char* intal2);
+-->Finding mod works on a logic (O(Log(A)) where when we have to find A % B, at each stage we update A = A - B, B = B * 2 and check if A<B. If so, we make B = initial(B) and continue with this process until the value of A is less than the intial value of B. The method uses optimises the above logic to reduce the number of subtractions. This method works faster than the usual method of finding mod by repeated subtraction which uses way more subtractions than this to get the result. 
+
+f)POWER of intal raise to n
+char* intal_pow(const char* intal1, unsigned int n);
+--> If the intal is zero, answer zero is returned. In a loop, the number is multiplied to the answer once and then n is halved. Then the number is squared. The multiplications happen with the help of the already available intal multiply function. If the n becomes less than or equal to zero, the loop is terminated. This method is called exponential squaring.
+
+g) GCD of two intals
+char* intal_gcd(const char* intal1, const char* intal2);
+-->If the two intals are zeroes, zero is returend. Otherwise the euclid's algorithm is used to calculate by recursively calling gcd(intal2%intal1,intal1). The modulus function is used which was previously defined.
+
+h)THE nTH FIBONACCI
+char* intal_fibonacci(unsigned int n);
+--> This uses the usual method of finding the nth fibonacci number by intializing the first two numbers as 0 and 1 and then adding them to get the third number. The second is assigned to first, third is assigned to second and the similar process continues.
+
+i)FACTORIAL 
+char* intal_factorial(unsigned int n);
+-->A recursive approach is used by calling the same function on n and multiplying its result to n. The base cases are 0!=1 and 1!=1.
+
+j)BINOMIAL COEFFICIENT
+char* intal_bincoeff(unsigned int n, unsigned int k);
+-->Finding the binomial coefficient uses the concept of Pascal's identity which is, C(n,k) = C(n-1,k) + C(n-1,k-1). The solution is  implemented using Dynamic Programming which uses an auxillary space of O(k).The identity: C(n,k) = C(n,n-k) for reducing the time and space.
+
+k)MAX
+int intal_max(char **arr, int n);
+--> Returns the maximum number in the given array by using the intal_compare function to compare the numbers with the current max, which is initialized to the first element in the array.
+
+l)MIN
+int intal_min(char **arr, int n);
+-->Returns the minimum number in the given array by using the intal_compare function to compare the numbers with the current min, which is initialized to the first element in the array.
+
+m)SEARCH
+int intal_search(char **arr, int n, const char* key);
+-->Performs the straightforward search by comparing each element to the key and returns the index if found and -1 otherwise.
+
+n)BINARY SEARCH
+int intal_binsearch(char **arr, int n, const char* key);
+-->The typical Binary Search algorithm is used that handles duplicates as well. It returns the first occurrence of the element to be searched. The index is returned if found or else -1 is returned.
+
+o)SORT
+void intal_sort(char **arr, int n);
+--> Returns the sorted array of intals using the Merge Sort algorithm. This algorithm runs in O(nlogn) for all the cases and is therefore probably the fastest to use here.
+
+p) THE COIN ROW PROBLEM
+char* coin_row_problem(char **arr, int n)
+--> This classic dynamic programming question is solved in 0(1) space here.The recurrence is cost[i]=max(coin[i]+cost[i-2],cost[i-1]) where cost is the dp table for storing the best possible cost. As we can see that for any operation, only cost[i-2] and cost[i-1] need to be stored and not the whole table. These variables are rotated as the loop goes on. This makes it possible to solve it in O(1) time.
+
+a)Your approach in implementing the functionalities of intal.
+b)Future work (If you had time and interest)
+c)Any more functionalities you think that can be included in the intal library?
+d)If you had no restrictions, how would you implement a library to handle integers of arbitrary length?
+
+If in future I have more time, I would like to write even more efficient codes for these functions so that run even faster, like the Karatsuba algorithm for multiplication and Long division for mod. 
+I think functionalities like division, append etc. Data structures for intals can be created like lists, stacks etc.
+
+I think restrictions are useful for implementing the functions in the most efficient and generic way possible so even if they were not there, I would still try to make the library functions efficient.
